@@ -152,7 +152,8 @@
 
     <div class="card">
         <h2>4. Self-Regulated Learning (SRL) Self-Report</h2>
-        <p>How comfortable did you feel reading in this space? (1: Very Anxious ~ 5: Very Comfortable)</p>
+
+        <p>Q1. How comfortable did you feel reading in this space? (1: Very Anxious ~ 5: Very Comfortable)</p>
         <select id="affectiveScore">
             <option value="1">1 - Very High Affective Filter (불안함)</option>
             <option value="2">2 - High</option>
@@ -160,7 +161,51 @@
             <option value="4" selected>4 - Low</option>
             <option value="5">5 - Very Low Affective Filter (매우 편안함)</option>
         </select>
-        <br>
+
+        <p>Q2. I felt willing to keep speaking English in this space. (1: Strongly Disagree ~ 5: Strongly Agree)</p>
+        <select id="wtcScore">
+            <option value="1">1 - Strongly Disagree</option>
+            <option value="2">2 - Disagree</option>
+            <option value="3" selected>3 - Neutral</option>
+            <option value="4">4 - Agree</option>
+            <option value="5">5 - Strongly Agree</option>
+        </select>
+
+        <p>Q3. How open did this space feel to you? (1: Very Enclosed ~ 5: Very Open)</p>
+        <select id="opennessScore">
+            <option value="1">1 - Very Enclosed</option>
+            <option value="2">2 - Somewhat Enclosed</option>
+            <option value="3" selected>3 - Neutral</option>
+            <option value="4">4 - Somewhat Open</option>
+            <option value="5">5 - Very Open</option>
+        </select>
+
+        <p>Q4. Please describe in one sentence how you felt speaking English in this space. (단답형)</p>
+        <input type="text" id="openFeedback" placeholder="e.g., I felt a bit nervous because people were passing by...">
+
+        <p>Q5. Which factor affected your comfort the most in this space? (택 1)</p>
+        <label><input type="radio" name="mainFactor" value="noise"> 소음 (Noise)</label><br>
+        <label><input type="radio" name="mainFactor" value="lighting"> 조명 (Lighting)</label><br>
+        <label><input type="radio" name="mainFactor" value="being_watched"> 타인의 시선 (Being watched by others)</label><br>
+        <label><input type="radio" name="mainFactor" value="openness"> 공간의 개방감 (Openness of the space)</label><br>
+        <label><input type="radio" name="mainFactor" value="temperature"> 온도 (Temperature)</label><br>
+        <label><input type="radio" name="mainFactor" value="other" checked> 기타 (Other)</label>
+
+        <p>Q6. Which of the following applied to your speaking today? (해당하는 것 모두 선택)</p>
+        <label><input type="checkbox" name="behavior" value="lowered_voice"> 목소리를 낮췄다 (Lowered my voice)</label><br>
+        <label><input type="checkbox" name="behavior" value="shorter_sentences"> 문장을 짧게 말했다 (Used shorter sentences)</label><br>
+        <label><input type="checkbox" name="behavior" value="hesitated_more"> 평소보다 더듬거나 멈췄다 (Hesitated/paused more than usual)</label><br>
+        <label><input type="checkbox" name="behavior" value="more_confident"> 평소보다 자신있게 말했다 (Spoke more confidently than usual)</label><br>
+        <label><input type="checkbox" name="behavior" value="none"> 해당 없음 (None of the above)</label>
+
+        <p>Q7. What was the most difficult part of speaking in this space today? (서술형, 자유롭게 작성)</p>
+        <textarea id="difficultyFeedback" rows="3" placeholder="예: 뒤에서 사람들이 지나다녀서 집중하기 어려웠다..."></textarea>
+
+        <p>Q8. Would you like to practice speaking in this space again? (예/아니오)</p>
+        <label><input type="radio" name="wantAgain" value="yes" checked> 예 (Yes)</label>
+        <label style="margin-left:16px;"><input type="radio" name="wantAgain" value="no"> 아니오 (No)</label>
+
+        <br><br>
         <button onclick="sendSurveyStatement()">Submit Survey (설문 제출)</button>
         <div id="status2" class="status"></div>
     </div>
@@ -366,6 +411,20 @@
             const email = document.getElementById("studentEmail").value;
             const space = document.getElementById("spaceType").value;
             const score = parseInt(document.getElementById("affectiveScore").value);
+            const wtcScore = parseInt(document.getElementById("wtcScore").value);
+            const opennessScore = parseInt(document.getElementById("opennessScore").value);
+            const openFeedback = document.getElementById("openFeedback").value;
+
+            const mainFactorEl = document.querySelector('input[name="mainFactor"]:checked');
+            const mainFactor = mainFactorEl ? mainFactorEl.value : null;
+
+            const behaviorChecks = document.querySelectorAll('input[name="behavior"]:checked');
+            const behaviors = Array.from(behaviorChecks).map(el => el.value);
+
+            const difficultyFeedback = document.getElementById("difficultyFeedback").value;
+
+            const wantAgainEl = document.querySelector('input[name="wantAgain"]:checked');
+            const wantAgain = wantAgainEl ? wantAgainEl.value : null;
 
             const statement = {
                 "actor": {
@@ -382,7 +441,16 @@
                     }
                 },
                 "result": {
-                    "score": { "raw": score, "min": 1, "max": 5 }
+                    "score": { "raw": score, "min": 1, "max": 5 },
+                    "response": openFeedback,
+                    "extensions": {
+                        "http://example.edu/xapi/ext/wtc-score": wtcScore,
+                        "http://example.edu/xapi/ext/openness-score": opennessScore,
+                        "http://example.edu/xapi/ext/main-factor": mainFactor,
+                        "http://example.edu/xapi/ext/speaking-behaviors": behaviors,
+                        "http://example.edu/xapi/ext/difficulty-feedback": difficultyFeedback,
+                        "http://example.edu/xapi/ext/want-again": wantAgain
+                    }
                 },
                 "context": {
                     "extensions": {
