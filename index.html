@@ -14,7 +14,6 @@
             line-height: 1.6;
             background: #f9f9f9;
         }
-
         .card {
             background: white;
             padding: 25px;
@@ -22,13 +21,11 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             margin-bottom: 20px;
         }
-
         h2 {
             color: #2c3e50;
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
         }
-
         .l2-text {
             background: #eef2f7;
             padding: 18px;
@@ -37,7 +34,6 @@
             margin: 15px 0;
             color: #2c3e50;
         }
-
         .quote-author {
             font-style: normal;
             font-weight: bold;
@@ -46,7 +42,6 @@
             color: #7f8c8d;
             font-size: 0.9em;
         }
-
         button {
             background: #3498db;
             color: white;
@@ -57,37 +52,34 @@
             font-size: 1em;
             margin-right: 5px;
         }
-
             button:hover {
                 background: #2980b9;
             }
-
             button.stop {
                 background: #e74c3c;
             }
-
                 button.stop:hover {
                     background: #c0392b;
                 }
-
             button:disabled {
                 background: #bdc3c7;
                 cursor: not-allowed;
             }
-
-        select, input {
+        select, input[type="text"], input[type="email"], textarea {
             padding: 8px;
             margin: 5px 0 15px 0;
             width: 100%;
             box-sizing: border-box;
+            font-family: inherit;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 6px;
         }
-
         .status {
             color: #27ae60;
             font-weight: bold;
             margin-top: 10px;
         }
-
         .stt-box {
             background: #f8f9fa;
             border: 1px solid #ddd;
@@ -98,15 +90,55 @@
             font-style: italic;
             color: #333;
         }
+        .question-block {
+            background: #fbfbfb;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px 18px;
+            margin-bottom: 18px;
+        }
+        .question-block p {
+            margin: 0 0 10px 0;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .option-row {
+            display: block;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .option-row:hover {
+            background: #eef2f7;
+        }
+        .option-row input[type="radio"],
+        .option-row input[type="checkbox"] {
+            width: auto;
+            margin: 0 8px 0 0;
+            vertical-align: middle;
+        }
+        .option-row-inline {
+            display: inline-block;
+            margin-right: 24px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .option-row-inline:hover {
+            background: #eef2f7;
+        }
+        .option-row-inline input[type="radio"] {
+            width: auto;
+            margin: 0 8px 0 0;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
-
     <div class="card">
         <h2>1. Participant & Spatial Context Setup</h2>
         <label>Student Email / ID:</label>
         <input type="email" id="studentEmail" placeholder="student@snu.ac.kr" value="student01@snu.ac.kr">
-
         <label>Current Space Condition (공간 조건 선택):</label>
         <select id="spaceType">
             <option value="Classroom">Classroom (사범대 강의실)</option>
@@ -114,42 +146,33 @@
             <option value="Linear Corridor" selected> Corridor (사범대 복도)</option>
         </select>
     </div>
-
     <div class="card">
         <h2>2. L2 EFL Reading Task</h2>
         <p>Read the following short passage carefully and click the button when finished.</p>
-
         <div class="l2-text">
             "School began with a man under a tree, a man who did not know he was a teacher, discussing his realizations with a few others who did not know they were students. The students reflected on what was exchanged and how good it was to be in the presence of this man. They wished their children also to listen to such a man. Soon, space was needed, and the first school was built.<br><br>
             The establishment of school was inevitable because it was part of the desire to raise the standards of learning. But the demands of the institution, in time, became paramount, and the original spirit of the school was lost. The architectural space must be dedicated to recreating that original spirit, to foster the feeling of an environment where one can learn through inspiration, not merely through instruction."
             <div class="quote-author">— Louis I. Kahn, <i>Form and Design</i> (1960)</div>
         </div>
-
         <button onclick="sendReadingStatement()">I finished reading (읽기 완료)</button>
         <div id="status1" class="status"></div>
     </div>
-
     <div class="card">
         <h2>3. L2 EFL Speaking Task (Audio & STT)</h2>
         <p>Please speak your thoughts in English about the passage above. Click <b>'Start Recording'</b> when you begin, and <b>'Stop & Send'</b> when finished.</p>
-
         <div>
             <button id="startRecBtn" onclick="startRecording()">🎤 Start Recording (녹음 시작)</button>
             <button id="stopRecBtn" onclick="stopRecording()" class="stop" disabled>⏹️ Stop & Send xAPI (녹음 종료 및 전송)</button>
         </div>
-
         <div style="margin-top: 15px;">
             <label>Real-time Transcribed Text (실시간 STT 인식 결과):</label>
             <div id="sttResult" class="stt-box">Speaking text will appear here...</div>
         </div>
-
         <div style="margin-top: 15px;">
             <audio id="audioPlayer" controls style="width: 100%; display: none;"></audio>
         </div>
-
         <div id="statusSpeaking" class="status"></div>
     </div>
-
     <div class="card">
         <h2>4. Self-Regulated Learning (SRL) Self-Report</h2>
 
@@ -183,33 +206,39 @@
         <p>Q4. Please describe in one sentence how you felt speaking English in this space. (단답형)</p>
         <input type="text" id="openFeedback" placeholder="e.g., I felt a bit nervous because people were passing by...">
 
-        <p>Q5. Which factor affected your comfort the most in this space? (택 1)</p>
-        <label><input type="radio" name="mainFactor" value="noise"> 소음 (Noise)</label><br>
-        <label><input type="radio" name="mainFactor" value="lighting"> 조명 (Lighting)</label><br>
-        <label><input type="radio" name="mainFactor" value="being_watched"> 타인의 시선 (Being watched by others)</label><br>
-        <label><input type="radio" name="mainFactor" value="openness"> 공간의 개방감 (Openness of the space)</label><br>
-        <label><input type="radio" name="mainFactor" value="temperature"> 온도 (Temperature)</label><br>
-        <label><input type="radio" name="mainFactor" value="other" checked> 기타 (Other)</label>
+        <div class="question-block">
+            <p>Q5. Which factor affected your comfort the most in this space? (택 1)</p>
+            <label class="option-row"><input type="radio" name="mainFactor" value="noise"> 소음 (Noise)</label>
+            <label class="option-row"><input type="radio" name="mainFactor" value="lighting"> 조명 (Lighting)</label>
+            <label class="option-row"><input type="radio" name="mainFactor" value="being_watched"> 타인의 시선 (Being watched by others)</label>
+            <label class="option-row"><input type="radio" name="mainFactor" value="openness"> 공간의 개방감 (Openness of the space)</label>
+            <label class="option-row"><input type="radio" name="mainFactor" value="temperature"> 온도 (Temperature)</label>
+            <label class="option-row"><input type="radio" name="mainFactor" value="other" checked> 기타 (Other)</label>
+        </div>
 
-        <p>Q6. Which of the following applied to your speaking today? (해당하는 것 모두 선택)</p>
-        <label><input type="checkbox" name="behavior" value="lowered_voice"> 목소리를 낮췄다 (Lowered my voice)</label><br>
-        <label><input type="checkbox" name="behavior" value="shorter_sentences"> 문장을 짧게 말했다 (Used shorter sentences)</label><br>
-        <label><input type="checkbox" name="behavior" value="hesitated_more"> 평소보다 더듬거나 멈췄다 (Hesitated/paused more than usual)</label><br>
-        <label><input type="checkbox" name="behavior" value="more_confident"> 평소보다 자신있게 말했다 (Spoke more confidently than usual)</label><br>
-        <label><input type="checkbox" name="behavior" value="none"> 해당 없음 (None of the above)</label>
+        <div class="question-block">
+            <p>Q6. Which of the following applied to your speaking today? (해당하는 것 모두 선택)</p>
+            <label class="option-row"><input type="checkbox" name="behavior" value="lowered_voice"> 목소리를 낮췄다 (Lowered my voice)</label>
+            <label class="option-row"><input type="checkbox" name="behavior" value="shorter_sentences"> 문장을 짧게 말했다 (Used shorter sentences)</label>
+            <label class="option-row"><input type="checkbox" name="behavior" value="hesitated_more"> 평소보다 더듬거나 멈췄다 (Hesitated/paused more than usual)</label>
+            <label class="option-row"><input type="checkbox" name="behavior" value="more_confident"> 평소보다 자신있게 말했다 (Spoke more confidently than usual)</label>
+            <label class="option-row"><input type="checkbox" name="behavior" value="none"> 해당 없음 (None of the above)</label>
+        </div>
 
-        <p>Q7. What was the most difficult part of speaking in this space today? (서술형, 자유롭게 작성)</p>
-        <textarea id="difficultyFeedback" rows="3" placeholder="예: 뒤에서 사람들이 지나다녀서 집중하기 어려웠다..."></textarea>
+        <div class="question-block">
+            <p>Q7. What was the most difficult part of speaking in this space today? (서술형, 자유롭게 작성)</p>
+            <textarea id="difficultyFeedback" rows="3" placeholder="예: 뒤에서 사람들이 지나다녀서 집중하기 어려웠다..."></textarea>
+        </div>
 
-        <p>Q8. Would you like to practice speaking in this space again? (예/아니오)</p>
-        <label><input type="radio" name="wantAgain" value="yes" checked> 예 (Yes)</label>
-        <label style="margin-left:16px;"><input type="radio" name="wantAgain" value="no"> 아니오 (No)</label>
+        <div class="question-block">
+            <p>Q8. Would you like to practice speaking in this space again? (예/아니오)</p>
+            <label class="option-row-inline"><input type="radio" name="wantAgain" value="yes" checked> 예 (Yes)</label>
+            <label class="option-row-inline"><input type="radio" name="wantAgain" value="no"> 아니오 (No)</label>
+        </div>
 
-        <br><br>
         <button onclick="sendSurveyStatement()">Submit Survey (설문 제출)</button>
         <div id="status2" class="status"></div>
     </div>
-
     <script>
         // -------------------------------------------------------------
         // Global Declarations (Ensures no ReferenceErrors)
@@ -220,17 +249,14 @@
         var speakingStartTime = 0;
         var recognition = null;
         var startTime = Date.now();
-
         // -------------------------------------------------------------
         // Veracity LRS Credentials
         const LRS_ENDPOINT = "https://minseok---test.lrs.io/xapi/";
         const LRS_KEY = "967fe5ef-b1e4-4148-954c-4f087f814fee";
         const LRS_SECRET = "2803c618-0afe-4d1a-ab51-1a98195bee7e";
-
         // Direct fetch function with immediate feedback
         function sendXAPI(statement, statusElementId) {
             const auth = "Basic " + btoa(LRS_KEY + ":" + LRS_SECRET);
-
             fetch(LRS_ENDPOINT + "statements", {
                 method: "POST",
                 headers: {
@@ -257,7 +283,6 @@
                     el.style.color = "#e74c3c";
                 });
         }
-
         // Initialize Web Speech API (STT)
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -265,7 +290,6 @@
             recognition.lang = 'en-US';
             recognition.continuous = true;
             recognition.interimResults = true;
-
             recognition.onresult = (event) => {
                 let transcript = '';
                 for (let i = event.resultIndex; i < event.results.length; ++i) {
@@ -275,13 +299,11 @@
                 document.getElementById("sttResult").innerText = recognizedText || "Listening...";
             };
         }
-
         // Task 1: Reading Task
         function sendReadingStatement() {
             const email = document.getElementById("studentEmail").value;
             const space = document.getElementById("spaceType").value;
             const dwellTimeSec = Math.round((Date.now() - startTime) / 1000);
-
             const statement = {
                 "actor": {
                     "mbox": "mailto:" + email,
@@ -307,10 +329,8 @@
                     }
                 }
             };
-
             sendXAPI(statement, "status1");
         }
-
         // Task 3: Recording & STT Logic
         async function startRecording() {
             try {
@@ -318,59 +338,42 @@
                 mediaRecorder = new MediaRecorder(stream);
                 audioChunks = [];
                 recognizedText = "";
-
                 document.getElementById("sttResult").innerText = "Listening...";
                 document.getElementById("statusSpeaking").innerText = "";
-
                 mediaRecorder.ondataavailable = (event) => {
                     if (event.data.size > 0) {
                         audioChunks.push(event.data);
                     }
                 };
-
                 mediaRecorder.start();
                 if (recognition) recognition.start();
-
                 speakingStartTime = Date.now();
-
                 document.getElementById("startRecBtn").disabled = true;
                 document.getElementById("stopRecBtn").disabled = false;
             } catch (err) {
                 alert("Microphone permission error: " + err);
             }
         }
-
         function stopRecording() {
             if (!mediaRecorder) return;
-
             mediaRecorder.stop();
             if (recognition) recognition.stop();
-
             document.getElementById("startRecBtn").disabled = false;
             document.getElementById("stopRecBtn").disabled = true;
-
             mediaRecorder.onstop = () => {
                 const speakingTimeSec = Math.round((Date.now() - speakingStartTime) / 1000);
                 const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-
-                // Attach to audio preview player
                 const audioUrl = URL.createObjectURL(audioBlob);
                 const audioPlayer = document.getElementById("audioPlayer");
                 audioPlayer.src = audioUrl;
                 audioPlayer.style.display = "block";
-
                 const email = document.getElementById("studentEmail").value;
                 const space = document.getElementById("spaceType").value;
-
-                // -------------------------------------------------------------
-                // 💾 [추가 로직] 오디오 원본 로컬 파일 자동 다운로드 저장
-                // -------------------------------------------------------------
                 const studentId = email.split('@')[0] || 'student';
                 const downloadLink = document.createElement('a');
                 downloadLink.href = audioUrl;
                 downloadLink.download = `L2_Speaking_${studentId}_${space}_${Date.now()}.webm`;
                 downloadLink.click();
-
                 const statement = {
                     "actor": {
                         "mbox": "mailto:" + email,
@@ -400,11 +403,9 @@
                         }
                     }
                 };
-
                 sendXAPI(statement, "statusSpeaking");
             };
         }
-
         // Task 4: Survey Task
         function sendSurveyStatement() {
             const email = document.getElementById("studentEmail").value;
@@ -413,18 +414,13 @@
             const wtcScore = parseInt(document.getElementById("wtcScore").value);
             const opennessScore = parseInt(document.getElementById("opennessScore").value);
             const openFeedback = document.getElementById("openFeedback").value;
-
             const mainFactorEl = document.querySelector('input[name="mainFactor"]:checked');
             const mainFactor = mainFactorEl ? mainFactorEl.value : null;
-
             const behaviorChecks = document.querySelectorAll('input[name="behavior"]:checked');
             const behaviors = Array.from(behaviorChecks).map(el => el.value);
-
             const difficultyFeedback = document.getElementById("difficultyFeedback").value;
-
             const wantAgainEl = document.querySelector('input[name="wantAgain"]:checked');
             const wantAgain = wantAgainEl ? wantAgainEl.value : null;
-
             const statement = {
                 "actor": {
                     "mbox": "mailto:" + email
@@ -457,10 +453,8 @@
                     }
                 }
             };
-
             sendXAPI(statement, "status2");
         }
     </script>
-
 </body>
 </html>
