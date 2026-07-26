@@ -90,35 +90,29 @@
             font-style: italic;
             color: #333;
         }
-        .option-row {
-            display: block;
-            padding: 8px 10px;
-            border-radius: 6px;
-            cursor: pointer;
+        .subnote {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: -6px;
+            margin-bottom: 16px;
         }
-        .option-row:hover {
-            background: #eef2f7;
+        .subquestion {
+            padding: 14px 16px;
+            border-radius: 8px;
+            background: #f7f9fb;
+            border: 1px solid #e3e8ee;
+            margin-bottom: 12px;
         }
-        .option-row input[type="radio"],
-        .option-row input[type="checkbox"] {
-            width: auto;
-            margin: 0 8px 0 0;
-            vertical-align: middle;
+        .subquestion:last-of-type {
+            margin-bottom: 20px;
         }
-        .option-row-inline {
-            display: inline-block;
-            margin-right: 24px;
-            padding: 8px 10px;
-            border-radius: 6px;
-            cursor: pointer;
+        .subquestion p {
+            margin: 0 0 8px 0;
+            font-weight: 600;
+            color: #2c3e50;
         }
-        .option-row-inline:hover {
-            background: #eef2f7;
-        }
-        .option-row-inline input[type="radio"] {
-            width: auto;
-            margin: 0 8px 0 0;
-            vertical-align: middle;
+        .subquestion select {
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -166,80 +160,140 @@
 
     <div class="card">
         <h2>4. Self-Regulated Learning (SRL) Self-Report</h2>
-        <p>Q1. How comfortable did you feel reading in this space? (1: Very Anxious ~ 5: Very Comfortable)</p>
-        <select id="affectiveScore">
-            <option value="1">1 - Very High Affective Filter (불안함)</option>
-            <option value="2">2 - High</option>
-            <option value="3">3 - Moderate</option>
-            <option value="4" selected>4 - Low</option>
-            <option value="5">5 - Very Low Affective Filter (매우 편안함)</option>
+        <p>Q1. 이번 세션에서 긴장하거나 편안했던 정도를 알려주세요. (0: 매우 긴장함 ~ 10: 매우 편안함)</p>
+        <select id="tensionComfortScore">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5" selected>5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
         </select>
     </div>
 
     <div class="card">
         <h2>5. Willingness to Communicate (WTC)</h2>
-        <p>Q2. I felt willing to keep speaking English in this space. (1: Strongly Disagree ~ 5: Strongly Agree)</p>
+        <p>Q2. 이번 세션에서 소통하고자 하는 의지의 정도를 알려주세요. (0: 매우 소극적 ~ 10: 매우 적극적)</p>
         <select id="wtcScore">
-            <option value="1">1 - Strongly Disagree</option>
-            <option value="2">2 - Disagree</option>
-            <option value="3" selected>3 - Neutral</option>
-            <option value="4">4 - Agree</option>
-            <option value="5">5 - Strongly Agree</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5" selected>5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
         </select>
     </div>
 
     <div class="card">
         <h2>6. Perceived Openness of the Space</h2>
-        <p>Q3. How open did this space feel to you? (1: Very Enclosed ~ 5: Very Open)</p>
+        <p>Q3. 이번 세션의 공간이 얼마나 개방적으로 느껴졌나요? (0: 매우 폐쇄적 ~ 10: 매우 개방적)</p>
         <select id="opennessScore">
-            <option value="1">1 - Very Enclosed</option>
-            <option value="2">2 - Somewhat Enclosed</option>
-            <option value="3" selected>3 - Neutral</option>
-            <option value="4">4 - Somewhat Open</option>
-            <option value="5">5 - Very Open</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5" selected>5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
         </select>
     </div>
 
     <div class="card">
-        <h2>7. Open-Ended Reflection</h2>
-        <p>Q4. Please describe in one sentence how you felt speaking English in this space. (단답형)</p>
-        <input type="text" id="openFeedback" placeholder="e.g., I felt a bit nervous because people were passing by...">
+        <h2>7. Comfort & Discomfort Factors (Open-Ended)</h2>
+        <p>Q4. 이번 세션에서 편하거나 불편했던 점이 있다면 무엇이었나요? (단답형)</p>
+        <input type="text" id="comfortDiscomfortFeedback" placeholder="자유롭게 작성해주세요...">
     </div>
 
     <div class="card">
-        <h2>8. Comfort Factors</h2>
-        <p>Q5. Which factor affected your comfort the most in this space? (택 1)</p>
-        <label class="option-row"><input type="radio" name="mainFactor" value="noise"> 소음 (Noise)</label>
-        <label class="option-row"><input type="radio" name="mainFactor" value="lighting"> 조명 (Lighting)</label>
-        <label class="option-row"><input type="radio" name="mainFactor" value="being_watched"> 타인의 시선 (Being watched by others)</label>
-        <label class="option-row"><input type="radio" name="mainFactor" value="openness"> 공간의 개방감 (Openness of the space)</label>
-        <label class="option-row"><input type="radio" name="mainFactor" value="temperature"> 온도 (Temperature)</label>
-        <label class="option-row"><input type="radio" name="mainFactor" value="other" checked> 기타 (Other)</label>
+        <h2>8. Environmental Influence (Open-Ended)</h2>
+        <p>Q5. 이번 세션에서 주변에서 무언가 신경 쓰이거나 영향을 준 것이 있었는지, 있었다면 그것이 대화에 어떤 영향을 주었나요? (단답형)</p>
+        <input type="text" id="environmentInfluenceFeedback" placeholder="자유롭게 작성해주세요...">
     </div>
 
     <div class="card">
-        <h2>9. Speaking Behaviors</h2>
-        <p>Q6. Which of the following applied to your speaking today? (해당하는 것 모두 선택)</p>
-        <label class="option-row"><input type="checkbox" name="behavior" value="lowered_voice"> 목소리를 낮췄다 (Lowered my voice)</label>
-        <label class="option-row"><input type="checkbox" name="behavior" value="shorter_sentences"> 문장을 짧게 말했다 (Used shorter sentences)</label>
-        <label class="option-row"><input type="checkbox" name="behavior" value="hesitated_more"> 평소보다 더듬거나 멈췄다 (Hesitated/paused more than usual)</label>
-        <label class="option-row"><input type="checkbox" name="behavior" value="more_confident"> 평소보다 자신있게 말했다 (Spoke more confidently than usual)</label>
-        <label class="option-row"><input type="checkbox" name="behavior" value="none"> 해당 없음 (None of the above)</label>
-    </div>
+        <h2>9. Task Engagement (Post-Activity Ratings)</h2>
+        <p class="subnote">아래 문항은 모두 1(전혀)~5(매우) 척도입니다.</p>
 
-    <div class="card">
-        <h2>10. Difficulty Reflection</h2>
-        <p>Q7. What was the most difficult part of speaking in this space today? (서술형, 자유롭게 작성)</p>
-        <textarea id="difficultyFeedback" rows="3" placeholder="예: 뒤에서 사람들이 지나다녀서 집중하기 어려웠다..."></textarea>
-    </div>
+        <div class="subquestion">
+            <p>Q6. 이 활동은 나에게 … 흥미로웠다.</p>
+            <select id="interestScore">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
 
-    <div class="card">
-        <h2>11. Willingness to Return</h2>
-        <p>Q8. Would you like to practice speaking in this space again? (예/아니오)</p>
-        <label class="option-row-inline"><input type="radio" name="wantAgain" value="yes" checked> 예 (Yes)</label>
-        <label class="option-row-inline"><input type="radio" name="wantAgain" value="no"> 아니오 (No)</label>
+        <div class="subquestion">
+            <p>Q7. 나는 이 활동이 … (1: 마음에 들지 않았다 ~ 5: 마음에 들었다)</p>
+            <select id="likingScore">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
 
-        <br><br>
+        <div class="subquestion">
+            <p>Q8. 이 활동을 하는 동안 나는 … (1: 전혀 집중하지 않았다 ~ 5: 열심히 집중했다)</p>
+            <select id="concentrationScore">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
+        <div class="subquestion">
+            <p>Q9. 나는 활동 내용에 … 집중했다.</p>
+            <select id="contentFocusScore">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
+        <div class="subquestion">
+            <p>Q10. 이 활동을 하는 동안 나는 상대방의 말에 … 귀 기울였다.</p>
+            <select id="listeningScore">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
+        <div class="subquestion">
+            <p>Q11. 이 활동을 하는 동안 나는 상대방의 말에 … 반응했다.</p>
+            <select id="responsivenessScore">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
         <button onclick="sendSurveyStatement()">Submit Survey (설문 제출)</button>
         <div id="status2" class="status"></div>
     </div>
@@ -249,4 +303,225 @@
         // Global Declarations (Ensures no ReferenceErrors)
         // -------------------------------------------------------------
         var mediaRecorder = null;
-        var
+        var audioChunks = [];
+        var recognizedText = "";
+        var speakingStartTime = 0;
+        var recognition = null;
+        var startTime = Date.now();
+        // -------------------------------------------------------------
+        // Veracity LRS Credentials
+        const LRS_ENDPOINT = "https://minseok---test.lrs.io/xapi/";
+        const LRS_KEY = "967fe5ef-b1e4-4148-954c-4f087f814fee";
+        const LRS_SECRET = "2803c618-0afe-4d1a-ab51-1a98195bee7e";
+        // Direct fetch function with immediate feedback
+        function sendXAPI(statement, statusElementId) {
+            const auth = "Basic " + btoa(LRS_KEY + ":" + LRS_SECRET);
+            fetch(LRS_ENDPOINT + "statements", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Experience-API-Version": "1.0.3",
+                    "Authorization": auth
+                },
+                body: JSON.stringify(statement)
+            })
+                .then(response => {
+                    const el = document.getElementById(statusElementId);
+                    if (response.ok) {
+                        el.innerText = "✅ xAPI Statement successfully sent to LRS!";
+                        el.style.color = "#27ae60";
+                    } else {
+                        el.innerText = "❌ Failed to send (Check LRS Credentials).";
+                        el.style.color = "#e74c3c";
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    const el = document.getElementById(statusElementId);
+                    el.innerText = "❌ Network Error.";
+                    el.style.color = "#e74c3c";
+                });
+        }
+        // Initialize Web Speech API (STT)
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.onresult = (event) => {
+                let transcript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    transcript += event.results[i][0].transcript;
+                }
+                recognizedText = transcript;
+                document.getElementById("sttResult").innerText = recognizedText || "Listening...";
+            };
+        }
+        // Task 1: Reading Task
+        function sendReadingStatement() {
+            const email = document.getElementById("studentEmail").value;
+            const space = document.getElementById("spaceType").value;
+            const dwellTimeSec = Math.round((Date.now() - startTime) / 1000);
+            const statement = {
+                "actor": {
+                    "mbox": "mailto:" + email,
+                    "name": email.split('@')[0]
+                },
+                "verb": {
+                    "id": "http://adlnet.gov/expapi/verbs/completed",
+                    "display": { "en-US": "completed" }
+                },
+                "object": {
+                    "id": "http://example.edu/xapi/activities/l2-efl-reading-task-1",
+                    "definition": {
+                        "name": { "en-US": "L2 EFL Reading Task" },
+                        "description": { "en-US": "Reading architectural text in EFL context" }
+                    }
+                },
+                "result": {
+                    "duration": "PT" + dwellTimeSec + "S"
+                },
+                "context": {
+                    "extensions": {
+                        "http://example.edu/xapi/ext/spatial-context": space
+                    }
+                }
+            };
+            sendXAPI(statement, "status1");
+        }
+        // Task 3: Recording & STT Logic
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+                recognizedText = "";
+                document.getElementById("sttResult").innerText = "Listening...";
+                document.getElementById("statusSpeaking").innerText = "";
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        audioChunks.push(event.data);
+                    }
+                };
+                mediaRecorder.start();
+                if (recognition) recognition.start();
+                speakingStartTime = Date.now();
+                document.getElementById("startRecBtn").disabled = true;
+                document.getElementById("stopRecBtn").disabled = false;
+            } catch (err) {
+                alert("Microphone permission error: " + err);
+            }
+        }
+        function stopRecording() {
+            if (!mediaRecorder) return;
+            mediaRecorder.stop();
+            if (recognition) recognition.stop();
+            document.getElementById("startRecBtn").disabled = false;
+            document.getElementById("stopRecBtn").disabled = true;
+            mediaRecorder.onstop = () => {
+                const speakingTimeSec = Math.round((Date.now() - speakingStartTime) / 1000);
+                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                const audioPlayer = document.getElementById("audioPlayer");
+                audioPlayer.src = audioUrl;
+                audioPlayer.style.display = "block";
+                const email = document.getElementById("studentEmail").value;
+                const space = document.getElementById("spaceType").value;
+                const studentId = email.split('@')[0] || 'student';
+                const downloadLink = document.createElement('a');
+                downloadLink.href = audioUrl;
+                downloadLink.download = `L2_Speaking_${studentId}_${space}_${Date.now()}.webm`;
+                downloadLink.click();
+                const statement = {
+                    "actor": {
+                        "mbox": "mailto:" + email,
+                        "name": email.split('@')[0]
+                    },
+                    "verb": {
+                        "id": "http://adlnet.gov/expapi/verbs/responded",
+                        "display": { "en-US": "responded with audio" }
+                    },
+                    "object": {
+                        "id": "http://example.edu/xapi/activities/l2-efl-speaking-task-1",
+                        "definition": {
+                            "name": { "en-US": "L2 EFL Speaking Task" },
+                            "description": { "en-US": "Spoken English response in spatial experiment" }
+                        }
+                    },
+                    "result": {
+                        "response": recognizedText || "(No text recognized)",
+                        "duration": "PT" + speakingTimeSec + "S",
+                        "extensions": {
+                            "http://example.edu/xapi/ext/audio-blob-size": audioBlob.size
+                        }
+                    },
+                    "context": {
+                        "extensions": {
+                            "http://example.edu/xapi/ext/spatial-context": space
+                        }
+                    }
+                };
+                sendXAPI(statement, "statusSpeaking");
+            };
+        }
+        // Task 4: Survey Task
+        function sendSurveyStatement() {
+            const email = document.getElementById("studentEmail").value;
+            const space = document.getElementById("spaceType").value;
+
+            const tensionComfortScore = parseInt(document.getElementById("tensionComfortScore").value);
+            const wtcScore = parseInt(document.getElementById("wtcScore").value);
+            const opennessScore = parseInt(document.getElementById("opennessScore").value);
+
+            const comfortDiscomfortFeedback = document.getElementById("comfortDiscomfortFeedback").value;
+            const environmentInfluenceFeedback = document.getElementById("environmentInfluenceFeedback").value;
+
+            const interestScore = parseInt(document.getElementById("interestScore").value);
+            const likingScore = parseInt(document.getElementById("likingScore").value);
+            const concentrationScore = parseInt(document.getElementById("concentrationScore").value);
+            const contentFocusScore = parseInt(document.getElementById("contentFocusScore").value);
+            const listeningScore = parseInt(document.getElementById("listeningScore").value);
+            const responsivenessScore = parseInt(document.getElementById("responsivenessScore").value);
+
+            const statement = {
+                "actor": {
+                    "mbox": "mailto:" + email
+                },
+                "verb": {
+                    "id": "http://adlnet.gov/expapi/verbs/responded",
+                    "display": { "en-US": "responded" }
+                },
+                "object": {
+                    "id": "http://example.edu/xapi/activities/affective-filter-survey",
+                    "definition": {
+                        "name": { "en-US": "Affective Filter Self-Report" }
+                    }
+                },
+                "result": {
+                    "score": { "raw": tensionComfortScore, "min": 0, "max": 10 },
+                    "extensions": {
+                        "http://example.edu/xapi/ext/tension-comfort-score": tensionComfortScore,
+                        "http://example.edu/xapi/ext/wtc-score": wtcScore,
+                        "http://example.edu/xapi/ext/openness-score": opennessScore,
+                        "http://example.edu/xapi/ext/comfort-discomfort-feedback": comfortDiscomfortFeedback,
+                        "http://example.edu/xapi/ext/environment-influence-feedback": environmentInfluenceFeedback,
+                        "http://example.edu/xapi/ext/interest-score": interestScore,
+                        "http://example.edu/xapi/ext/liking-score": likingScore,
+                        "http://example.edu/xapi/ext/concentration-score": concentrationScore,
+                        "http://example.edu/xapi/ext/content-focus-score": contentFocusScore,
+                        "http://example.edu/xapi/ext/listening-score": listeningScore,
+                        "http://example.edu/xapi/ext/responsiveness-score": responsivenessScore
+                    }
+                },
+                "context": {
+                    "extensions": {
+                        "http://example.edu/xapi/ext/spatial-context": space
+                    }
+                }
+            };
+            sendXAPI(statement, "status2");
+        }
+    </script>
+</body>
+</html>
