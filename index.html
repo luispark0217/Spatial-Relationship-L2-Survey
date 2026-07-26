@@ -90,12 +90,6 @@
             font-style: italic;
             color: #333;
         }
-        .subnote {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin-top: -6px;
-            margin-bottom: 16px;
-        }
         .subquestion {
             padding: 14px 16px;
             border-radius: 8px;
@@ -103,15 +97,13 @@
             border: 1px solid #e3e8ee;
             margin-bottom: 12px;
         }
-        .subquestion:last-of-type {
-            margin-bottom: 20px;
-        }
         .subquestion p {
             margin: 0 0 8px 0;
             font-weight: 600;
             color: #2c3e50;
         }
-        .subquestion select {
+        .subquestion select,
+        .subquestion input[type="text"] {
             margin-bottom: 0;
         }
     </style>
@@ -159,77 +151,71 @@
     </div>
 
     <div class="card">
-        <h2>4. Self-Regulated Learning (SRL) Self-Report</h2>
-        <p>Q1. 이번 세션에서 긴장하거나 편안했던 정도를 알려주세요. (0: 매우 긴장함 ~ 10: 매우 편안함)</p>
-        <select id="tensionComfortScore">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5" selected>5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-    </div>
-
-    <div class="card">
-        <h2>5. Willingness to Communicate (WTC)</h2>
-        <p>Q2. 이번 세션에서 소통하고자 하는 의지의 정도를 알려주세요. (0: 매우 소극적 ~ 10: 매우 적극적)</p>
-        <select id="wtcScore">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5" selected>5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-    </div>
-
-    <div class="card">
-        <h2>6. Perceived Openness of the Space</h2>
-        <p>Q3. 이번 세션의 공간이 얼마나 개방적으로 느껴졌나요? (0: 매우 폐쇄적 ~ 10: 매우 개방적)</p>
-        <select id="opennessScore">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5" selected>5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-    </div>
-
-    <div class="card">
-        <h2>7. Comfort & Discomfort Factors (Open-Ended)</h2>
-        <p>Q4. 이번 세션에서 편하거나 불편했던 점이 있다면 무엇이었나요? (단답형)</p>
-        <input type="text" id="comfortDiscomfortFeedback" placeholder="자유롭게 작성해주세요...">
-    </div>
-
-    <div class="card">
-        <h2>8. Environmental Influence (Open-Ended)</h2>
-        <p>Q5. 이번 세션에서 주변에서 무언가 신경 쓰이거나 영향을 준 것이 있었는지, 있었다면 그것이 대화에 어떤 영향을 주었나요? (단답형)</p>
-        <input type="text" id="environmentInfluenceFeedback" placeholder="자유롭게 작성해주세요...">
-    </div>
-
-    <div class="card">
-        <h2>9. Task Engagement (Post-Activity Ratings)</h2>
-        <p class="subnote">아래 문항은 모두 1(전혀)~5(매우) 척도입니다.</p>
+        <h2>4. 세션 직후 검사</h2>
 
         <div class="subquestion">
-            <p>Q6. 이 활동은 나에게 … 흥미로웠다.</p>
+            <p>Q1. 이번 세션에서 긴장하거나 편안했던 정도를 알려주세요. (0: 매우 긴장함 ~ 10: 매우 편안함)</p>
+            <select id="tensionComfortScore">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5" selected>5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+
+        <div class="subquestion">
+            <p>Q2. 이번 세션에서 소통하고자 하는 의지의 정도를 알려주세요. (0: 매우 소극적 ~ 10: 매우 적극적)</p>
+            <select id="wtcScore">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5" selected>5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+
+        <div class="subquestion">
+            <p>Q3. 이번 세션의 공간이 얼마나 개방적으로 느껴졌나요? (0: 매우 폐쇄적 ~ 10: 매우 개방적)</p>
+            <select id="opennessScore">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5" selected>5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+
+        <div class="subquestion">
+            <p>Q4. 이번 세션에서 편하거나 불편했던 점이 있다면 무엇이었나요? (단답형)</p>
+            <input type="text" id="comfortDiscomfortFeedback" placeholder="자유롭게 작성해주세요...">
+        </div>
+
+        <div class="subquestion">
+            <p>Q5. 이번 세션에서 주변에서 무언가 신경 쓰이거나 영향을 준 것이 있었는지, 있었다면 그것이 대화에 어떤 영향을 주었나요? (단답형)</p>
+            <input type="text" id="environmentInfluenceFeedback" placeholder="자유롭게 작성해주세요...">
+        </div>
+
+        <div class="subquestion">
+            <p>Q6. 이 활동은 나에게 … 흥미로웠다. (1: 전혀 ~ 5: 매우)</p>
             <select id="interestScore">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -262,7 +248,7 @@
         </div>
 
         <div class="subquestion">
-            <p>Q9. 나는 활동 내용에 … 집중했다.</p>
+            <p>Q9. 나는 활동 내용에 … 집중했다. (1: 전혀 ~ 5: 매우)</p>
             <select id="contentFocusScore">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -273,7 +259,7 @@
         </div>
 
         <div class="subquestion">
-            <p>Q10. 이 활동을 하는 동안 나는 상대방의 말에 … 귀 기울였다.</p>
+            <p>Q10. 이 활동을 하는 동안 나는 상대방의 말에 … 귀 기울였다. (1: 전혀 ~ 5: 매우)</p>
             <select id="listeningScore">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -284,7 +270,7 @@
         </div>
 
         <div class="subquestion">
-            <p>Q11. 이 활동을 하는 동안 나는 상대방의 말에 … 반응했다.</p>
+            <p>Q11. 이 활동을 하는 동안 나는 상대방의 말에 … 반응했다. (1: 전혀 ~ 5: 매우)</p>
             <select id="responsivenessScore">
                 <option value="1">1</option>
                 <option value="2">2</option>
