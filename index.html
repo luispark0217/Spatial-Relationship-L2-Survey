@@ -231,3 +231,76 @@
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+                recognizedText = "";
+                document.getElementById("sttResult").innerText = "Listening...";
+                document.getElementById("statusSpeaking").innerText = "";
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        audioChunks.push(event.data);
+                    }
+                };
+                mediaRecorder.start();
+                if (recognition) recognition.start();
+                speakingStartTime = Date.now();
+                document.getElementById("startRecBtn").disabled = true;
+                document.getElementById("stopRecBtn").disabled = false;
+            } catch (err) {
+                alert("Microphone permission error: " + err);
+            }
+        }
+        function stopRecording() {
+            if (!mediaRecorder) return;
+            mediaRecorder.stop();
+            if (recognition) recognition.stop();
+            document.getElementById("startRecBtn").disabled = false;
+            document.getElementById("stopRecBtn").disabled = true;
+            mediaRecorder.onstop = () => {
+                const speakingTimeSec = Math.round((Date.now() - speakingStartTime) / 1000);
+                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                const audioPlayer = document.getElementById("audioPlayer");
+                audioPlayer.src = audioUrl;
+                audioPlayer.style.display = "block";
+                const email = document.getElementById("studentEmail").value;
+                const space = document.getElementById("spaceType").value;
+                const studentId = email.split('@')[0] || 'student';
+                const downloadLink = document.createElement('a');
+                downloadLink.href = audioUrl;
+                downloadLink.download = `L2_Speaking_${studentId}_${space}_${Date.now()}.webm`;
+                downloadLink.click();
+                const statement = {
+                    "actor": {
+                        "mbox": "mailto:" + email,
+                        "name": email.split('@')[0]
+                    },
+                    "verb": {
+                        "id": "http://adlnet.gov/expapi/verbs/responded",
+                        "display": { "en-US": "responded with audio" }
+                    },
+                    "object": {
+                        "id": "http://example.edu/xapi/activities/l2-efl-speaking-task-1",
+                        "definition": {
+                            "name": { "en-US": "L2 EFL Speaking Task" },
+                            "description": { "en-US": "Spoken English response in spatial experiment" }
+                        }
+                    },
+                    "result": {
+                        "response": recognizedText || "(No text recognized)",
+                        "duration": "PT" + speakingTimeSec + "S",
+                        "extensions": {
+                            "http://example.edu/xapi/ext/audio-blob-size": audioBlob.size
+                        }
+                    },
+                    "context": {
+                        "extensions": {
+                            "http://example.edu/xapi/ext/spatial-context": space
+                        }
+                    }
+                };
+                sendXAPI(statement, "statusSpeaking");
+            };
+        }
+    </script>
+</body>
+</html>
